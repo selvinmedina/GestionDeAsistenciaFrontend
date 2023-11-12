@@ -1,0 +1,63 @@
+<c-row ngPreserveWhitespaces>
+  <c-col xs="12">
+  </c-col>
+  <c-col xs="12">
+    <c-card class="mb-4">
+      <c-card-header>
+        <strong>Notifica una visita</strong>
+      </c-card-header>
+      <c-card-body class="d-flex">
+          <form cForm class="w-50">
+            <div class="mb-3">
+              <label cLabel for="exampleFormControlInput1">Nombre Residente</label>
+              <input cFormControl
+                    class="form-control "
+                     id="exampleFormControlInput1"
+                     placeholder="nombre del residente"
+                     type=""
+              />
+              
+              <label cLabel for="exampleFormControlInput1 " class="mt-3">Tipo Transporte:</label>
+              <select name="" id="" class="selector form-control form-select ">
+                <option value="">Carro</option>
+                <option value="">Moto</option>
+              </select>
+
+              <label cLabel for="exampleFormControlInput1" class="mt-3">Fecha Entrada:</label>
+              <input cFormControl
+                    class="form-control "
+                     id="exampleFormControlInput1"
+                     placeholder="nombre del residente"
+                     type="datetime-local"
+              />
+
+
+              <label cLabel for="exampleFormControlInput1" class="mt-3">Fecha Salida:</label>
+              <input cFormControl
+                    class="form-control "
+                     id="exampleFormControlInput1"
+                     placeholder="nombre del residente"
+                     type="datetime-local"
+              />
+
+              <label cLabel for="exampleFormControlInput1" class="mt-3">Comentario adicional:</label>
+              <textarea cFormControl class="form-control "></textarea>
+            
+
+              <button class="btn btn-primary mt-2">Notificar Visita</button>
+            </div>
+
+
+
+          </form>
+
+          <div class="w-50 ms-4">
+            <img class="w-100 h-100 rounded-5" src="assets/img/personal/agendarCitas.jpg" alt="" srcset="">
+          </div>
+
+      </c-card-body>
+    </c-card>
+  </c-col>
+
+</c-row>
+

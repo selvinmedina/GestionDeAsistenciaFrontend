@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { ColorsComponent } from './colors.component';
-import { TypographyComponent } from './typography.component';
+import { ColorsComponent } from './usuarios/usuarios.component';
+import { controlVisitasComponent } from './controlVisitas/controlVisitas.component';
+import { ButtonsComponent } from './roles/buttons.component';
+import { notificarVisitasComponent } from './notificarVisitas/notificarVisitas.component';
 
 const routes: Routes = [
   {
     path: '',
     data: {
-      title: 'Theme',
+      title: '',
     },
     children: [
       {
@@ -20,16 +22,31 @@ const routes: Routes = [
         path: 'colors',
         component: ColorsComponent,
         data: {
-          title: 'Colors',
-        },
+          title: 'Usuarios',
+        }
       },
       {
         path: 'typography',
-        component: TypographyComponent,
+        component: controlVisitasComponent,
         data: {
-          title: 'Typography',
+          title: 'Visitas',
         },
       },
+      {
+        path: 'roles',
+        component: ButtonsComponent,
+        data: {
+          title: 'Roles',
+        },
+      },
+      {
+        path: 'notificarVisitas',
+        component: notificarVisitasComponent,
+        data: {
+          title: 'Notificar-Visitas',
+        },
+      },
+
     ],
   },
 ];

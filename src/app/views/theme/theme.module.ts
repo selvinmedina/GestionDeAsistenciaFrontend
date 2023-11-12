@@ -4,11 +4,13 @@ import { NgModule } from '@angular/core';
 import { CardModule, GridModule, NavModule, UtilitiesModule, TabsModule } from '@coreui/angular';
 import { IconModule } from '@coreui/icons-angular';
 
-import { ColorsComponent, ThemeColorComponent } from './colors.component';
-import { TypographyComponent } from './typography.component';
+import { ColorsComponent, ThemeColorComponent } from './usuarios/usuarios.component';
+import { controlVisitasComponent } from './controlVisitas/controlVisitas.component';
 
 // Theme Routing
 import { ThemeRoutingModule } from './theme-routing.module';
+import { ButtonsComponent } from './roles/buttons.component';
+import { notificarVisitasComponent } from './notificarVisitas/notificarVisitas.component';
 
 @NgModule({
   imports: [
@@ -24,7 +26,9 @@ import { ThemeRoutingModule } from './theme-routing.module';
   declarations: [
     ColorsComponent,
     ThemeColorComponent,
-    TypographyComponent,
+    controlVisitasComponent,
+    ButtonsComponent,
+    notificarVisitasComponent
   ]
 })
 export class ThemeModule {

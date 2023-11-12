@@ -18,7 +18,7 @@ import { DocsComponentsModule } from '@docs-components/docs-components.module';
 import { FormsRoutingModule } from './forms-routing.module';
 import { RangesComponent } from './ranges/ranges.component';
 import { FloatingLabelsComponent } from './floating-labels/floating-labels.component';
-import { FormControlsComponent } from './form-controls/form-controls.component';
+import { notificarVisitasComponent } from '../theme/notificarVisitas/notificarVisitas.component';
 import { SelectComponent } from './select/select.component';
 import { ChecksRadiosComponent } from './checks-radios/checks-radios.component';
 import { InputGroupsComponent } from './input-groups/input-groups.component';
@@ -30,7 +30,6 @@ import { ValidationComponent } from './validation/validation.component';
   declarations: [
     RangesComponent,
     FloatingLabelsComponent,
-    FormControlsComponent,
     SelectComponent,
     ChecksRadiosComponent,
     InputGroupsComponent,
