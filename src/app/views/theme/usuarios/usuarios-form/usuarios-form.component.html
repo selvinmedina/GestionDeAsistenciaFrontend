@@ -1,0 +1,77 @@
+
+<c-modal id="liveDemoModal" [visible]="visible" (visibleChange)="handleLiveDemoChange($event)">
+  <c-modal-header>
+    <h5 cModalTitle>Editar Usuario</h5>
+    <button (click)="cambiarVista()" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+
+    <small> Usuario  </small>
+    <input type="text" class="form-control ">
+
+    <small> Nombre  </small>
+    <input type="text" class="form-control ">
+
+    <small> Apellido </small>
+    <input type="text" class="form-control ">
+
+    <small> Email </small>
+    <input type="email" class="form-control ">
+
+    <small> contraseña </small>
+    <input type="email" class="form-control ">
+
+    <small> Rol </small>
+    <select name="" id="" class="form-control">
+      <option value="">Administrador</option>
+      <option value="">Residente</option>
+      <option value="">Guardia</option>
+    </select>
+
+  </c-modal-body>
+  <c-modal-footer>
+    <button (click)="cambiarVista()" cButton color="secondary" class="bg-danger btn text-white">
+      Cerrar
+    </button>
+    <button cButton color="primary" class=" btn text-white" style="background-color: #26856d;">Guardar Cambios</button>
+  </c-modal-footer>
+</c-modal>
+
+
+<c-modal id="liveDemoModal" [visible]="visibleRegister" (visibleChange)="handleLiveDemoChange($event)">
+  <c-modal-header>
+    <h5 cModalTitle>Registrar Usuario</h5>
+    <button (click)="cambiarVistaRegistro()" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+
+    <small> Usuario  </small>
+    <input type="text" class="form-control ">
+
+    <small> Nombre  </small>
+    <input type="text" class="form-control ">
+
+    <small> Apellido </small>
+    <input type="text" class="form-control ">
+
+    <small> Email </small>
+    <input type="email" class="form-control ">
+
+    <small> contraseña </small>
+    <input type="email" class="form-control ">
+
+    <small> Rol </small>
+    <select name="" id="" class="form-control">
+      <option value="">Administrador</option>
+      <option value="">Residente</option>
+      <option value="">Guardia</option>
+    </select>
+
+  </c-modal-body>
+  <c-modal-footer>
+    <button (click)="cambiarVistaRegistro()" cButton color="secondary" class="bg-danger btn text-white">
+      Cerrar
+    </button>
+    <button cButton color="primary" class=" btn text-white" style="background-color: #26856d;">Registrar</button>
+  </c-modal-footer>
+</c-modal>
