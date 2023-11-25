@@ -29,7 +29,7 @@ const routes: Routes = [
         path: 'typography',
         component: controlVisitasComponent,
         data: {
-          title: 'Visitas',
+          title: 'Control de Visitas',
         },
       },
       {
@@ -43,14 +43,14 @@ const routes: Routes = [
         path: 'notificarVisitas',
         component: notificarVisitasComponent,
         data: {
-          title: 'Notificar-Visitas',
+          title: 'Notificar Visitas',
         },
       },
       {
         path: 'historialVisitas',
         component: HistorialComponent,
         data: {
-          title: 'historial-Visitas',
+          title: 'Historial de Visitas',
         },
       },
       
