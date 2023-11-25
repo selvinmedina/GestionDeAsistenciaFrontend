@@ -2,82 +2,164 @@
   <c-col xs="12">
   </c-col>
   <c-col xs="12">
-    <c-card class="mb-4">
+    <c-card class="mb-4 ">
       <c-card-header>
         <strong>Notifica una visita</strong>
       </c-card-header>
-      <c-card-body class="d-flex">
-          <form cForm class="w-50">
-            <div class="mb-3">
-              <label cLabel for="exampleFormControlInput1">Nombre Residente</label>
-              <input cFormControl
-                    class="form-control "
-                     id="exampleFormControlInput1"
-                     placeholder="nombre del residente"
-                     type=""
-              />
+      <c-card-body class="d-flex w-100">
+        <form [formGroup]="formulario"  class="w-100 md:w-6/12">
 
-              <label cLabel for="exampleFormControlInput1" class="mt-3">Identidad</label>
-              <input cFormControl
-                    class="form-control "
-                     id="exampleFormControlInput1"
-                     placeholder="identidad"
-                     type=""
-              />
-              
-
-              <label cLabel for="exampleFormControlInput1" class="mt-3">Nombre Empresa (si aplica)</label>
-              <input cFormControl
-                    class="form-control "
-                     id="exampleFormControlInput1"
-                     placeholder="Nombre de la empresa ( opcional )"
-                     type=""
-              />
-
-              <label cLabel for="exampleFormControlInput1 " class="mt-3">Tipo Transporte:</label>
-              <select name="" id="" class="selector form-control form-select ">
-                <option value="">Auto</option>
-                <option value="">Moto</option>
-                <option value="">Bicicleta</option>
-              </select>
-
-              <label cLabel for="exampleFormControlInput1 " class="mt-3">No de placa:</label>
-              <input cFormControl
-                    class="form-control "
-                     id="exampleFormControlInput1"
-                     placeholder="numero de placa"
-                     type=""
-              />
-
-              <label cLabel for="exampleFormControlInput1" class="mt-3">Fecha Entrada:</label>
-              <input cFormControl
-                    class="form-control "
-                     id="exampleFormControlInput1"
-                     placeholder="nombre del residente"
-                     type="datetime-local"
-              />
-
-
-              <label cLabel for="exampleFormControlInput1" class="mt-3">Fecha Salida:</label>
-              <input cFormControl
-                    class="form-control "
-                     id="exampleFormControlInput1"
-                     placeholder="nombre del residente"
-                     type="datetime-local"
-              />
-
-              <label cLabel for="exampleFormControlInput1" class="mt-3">Comentario adicional:</label>
-              <textarea cFormControl class="form-control "></textarea>
             
-          
-              <button class="btn btn-primary mt-2">Notificar Visita</button>
+            <div class="mb-3">
+
+              <div
+              formArrayName="visitantes"
+              >
+
+              <div 
+              class="flex md:flex-row md:gap-10 flex-col"
+              formGroupName="{{i}}"
+              *ngFor="let visitante of FormulariosVisitantes.controls; let i = index"
+              >
+
+
+
+                  <div class="w-full md:w-50">
+                      <small cLabel for="exampleFormControlInput1" class="mt-3 me-2">Identidad:</small>
+                      <input cFormControl
+                      class="form-control "
+                      id="exampleFormControlInput1"
+                      placeholder=""
+                      formControlName="identidad"
+                      type=""
+                      />
+                  </div>
+                  <div class="w-full md:w-50 ">
+                    <label cLabel for="exampleFormControlInput1" class=" me-2">Nombre Residente:</label>
+                    <input cFormControl
+                    class="form-control "
+                    id="exampleFormControlInput1"
+                    placeholder=""
+                    formControlName="residente"
+                    type=""
+                    />
+                  </div>
+                  <button [hidden]="i==0" class="text-white mt-4 bg-red-400 p-2 px-4 rounded flex justify-center items-center " (click)="removerInputIdentidad(i)">X</button>
+                  <button disabled [hidden]="!(i==0)" class="invisible text-white mt-4 bg-red-400 p-2 px-4 rounded flex justify-center items-center " (click)="removerInputIdentidad(i)">X</button>
+
+              </div>
             </div>
+
+          </div>
+
+            <div class="w-full justify-end items-end flex mt-2">
+              <button type='button' class="p-2  bg-[#52a183] border-none text-sm hover:bg-[#3b755f] text-white rounded-md" (click)="agregarInputIdentidadExtra()">Personal ++</button>
+            </div>
+
+
+
+
+            <div formArrayName="transportes">
+              <fieldset class="mt-2 bg-slate-100" >
+                <legend class="text-base px-4  ">Transporte </legend>
+
+                <div 
+                class="mt-2 flex gap-2 flex-wrap p-2 rounded-2 justify-center items-center flex-col md:flex-row " 
+                id="exampleFormControlInput1"
+                [formGroupName]="i"
+                *ngFor="let fields of FormulariosTransporte.controls; let i = index"
+                  >
+
+                  <div class="w-full md:w-3/12 ">
+                    <small cLabel for="exampleFormControlInput1" class="mt-3 overflow-auto">Nombre Empresa</small>
+                    <input cFormControl
+                    class="form-control "
+                    id="exampleFormControlInput1"
+                    formControlName="NombreEmpresa"
+                    placeholder="Nombre de la empresa ( opcional )"
+                    type=""
+                    />
+                  </div>
+
+                  <div class="w-full md:w-3/12"  >
+                    <small cLabel for="exampleFormControlInput1" class="mt-3">Tipo Transporte:</small>
+                      <input type="text" 
+                      class="form-control "
+                      formControlName="tipoTransporte"
+                      placeholder=""
+                    >
+                    </div>
+                    
+                    <div class="w-full md:w-2/12">
+                      <small> Placa: </small>
+                      <input type="text" cFormControl
+                      class="form-control "
+                      id="exampleFormControlInput1"
+                      formControlName="placa"
+                      type="">
+                    </div>
+                      
+                    <div class="w-full md:w-2/12">
+                      <small>Color: </small>
+                      <input type="text" cFormControl
+                      class="form-control "
+                      id="exampleFormControlInput1"
+                      formControlName="color"
+                      placeholder=""
+                      type="">
+                    </div>
+
+                    <button class="text-white mt-4 bg-red-400 p-2 rounded flex justify-center items-center w-full md:w-10 " (click)="removerInputTransporte(i)">X</button>
+              </div>
+              </fieldset>
+            </div>
+
+            <div class="w-full justify-end items-end flex mt-2">
+              <button type='button' class="p-2  bg-[#f0974f] border-none text-sm hover:bg-[#aa6c39] text-white rounded-md " (click)="agregarInputExtra()">Transaporte ++</button>
+            </div>
+
+
+
+            <div class="mt-2">
+              <small cLabel for="exampleFormControlInput1" class="mt-3">Fecha Entrada:</small>
+              <input cFormControl
+                    class="form-control "
+                     id="exampleFormControlInput1"
+                     placeholder="nombre del residente"
+                     type="datetime-local"
+                     formControlName="fechaEntrada" 
+              />
+            
+            </div>
+
+            <div class="mt-2">
+              <small cLabel for="exampleFormControlInput1" class="mt-3">Fecha Salida:</small>
+              <input cFormControl
+                    class="form-control "
+                     id="exampleFormControlInput1"
+                     placeholder="nombre del residente"
+                     type="datetime-local"
+                     formControlName="fechaSalida" 
+
+              />
+            </div>
+
+
+
+            <div class="mt-2">
+              <small cLabel for="exampleFormControlInput1" class="mt-3">Comentario adicional:</small>
+              <textarea cFormControl class="form-control " formControlName="comentario"></textarea>
+            </div>  
+              <button class="btn btn-primary mt-2 bg-green-700 border-none" type='button'  (click)="notificarVisita()">Notificar Visita</button>
+
+
+
 
 
 
           </form>
 
-          <div class="w-50 ms-4">
+          <div class="w-50 ms-4 hidden lg:block">
             <img class="w-100 h-100 rounded-5" src="assets/img/personal/agendarCitas.jpg" alt="" srcset="">
           </div>
 

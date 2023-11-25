@@ -2,7 +2,9 @@
   <div class="w-full d-flex  justify-content-end">
     <button class="ms-2 btn btn-secondary text-white " style="background-color: rgb(65, 120, 192);" (click)="cambiarVistaRegistro()">Agregar nuevo usuario</button>
   </div>
+<c-card class="mb-4 mt-5 text-center">
 <div class="fade-in">
+  
   <table class="table">
     <thead>
       <tr>
@@ -44,12 +46,24 @@
           <button class="ms-2 btn btn-danger text-white">Eliminar</button>
         </td>
       </tr>
+      <tr>
+        <th scope="row">4</th>
+        <td>Javier</td>
+        <td>Sanchez</td>
+        <td>Auditor</td>
+        <td >
+          <button class="ms-2 btn btn-secondary text-white" (click)="toggleLiveDemo()">Editar</button>
+          <button class="ms-2 btn btn-danger text-white">Eliminar</button>
+        </td>
+      </tr>
     </tbody>
   </table>
 
 
   
 </div>
+</c-card >
 </div>
+
 
 <app-usuarios-form  ></app-usuarios-form>

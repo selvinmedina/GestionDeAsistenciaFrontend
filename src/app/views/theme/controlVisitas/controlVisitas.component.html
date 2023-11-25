@@ -1,71 +1,88 @@
 <div class="fade-in">
   <c-card class="mb-4">
     <c-card-header>
-<div class="fade-in">
-  <table class="table">
+      Control de Visitas
+    </c-card-header>
+<div class="fade-in text-center">
+  <table class="table ">
     <thead>
       <tr>
-        <th scope="col">Id Solicitud</th>
+        <th scope="col">Id solicitud</th>
         <th scope="col">Visita</th>
         <th scope="col">Descripcion</th>
-        <th scope="col">hora de llegada</th>
-        <th scope="col">hora de Salida</th>
-        <th scope="col">Tipo de Transaporte</th>
-        <th scope="col">no de placa</th>
+        <th scope="col">Hora de llegada</th>
+        <th scope="col">Hora de salida</th>
+        <th scope="col">Tipo de transaporte</th>
+        <th scope="col">N° de placa</th>
         <th scope="col"> Aprobada? </th>
         <th scope="col">Opciones</th>
       </tr>
     </thead>
-    <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Liberty Networks</td>
-        <td>Escuadrilla</td>
-        <td>10:00 am</td>
-        <td>01:00 pm</td>
-        <td>Auto</td>
-        <td>--</td>
-        <td>PENDIENTE</td>
-        <td >
-          <button class="ms-2 btn  text-white" style="background-color: rgb(71, 100, 179);">Marcar llegada</button>
-          <button class="ms-2 btn btn-danger text-white">Eliminar</button>
-        </td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Sycom</td>
-        <td>Proveedor</td>
-        <td>10:00 am</td>
-        <td>------</td>
-        <td>Auto</td>
-        <td>1231234</td>
-        <td>APROBADA</td>
-        <td >
-          <button class="ms-2 btn  text-white" style="background-color: rgb(131, 131, 25);">Marcar Salida</button>
-          <button class="ms-2 btn btn-danger text-white">Eliminar</button>
-        </td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Acosa</td>
-        <td>Vendedor</td>
-        <td>10:00 am </td>
-        <td>01:00 pm </td>
-        <td>Auto</td>
-        <td>12312434</td>
-        <td>DENEGADA</td>
-        <td >
-          <button class="ms-2 btn  text-white" style="background-color: rgb(71, 100, 179);">Marcar llegada</button>
-          <button class="ms-2 btn btn-danger text-white">Eliminar</button>
+    <tbody class="">
+      
+      <tr *ngFor="let item of Visitas; let i = index" >
+        <th scope="row">{{item.id}}</th>
+        <td>{{item.visita.join(',')}}</td>
+        <td>{{item.Descripcion}}</td>
+        <td>{{item?.horallegada?.toDateString()}}</td>
+        <td>{{item?.horasalida?.toDateString()}}</td>
+        <td>{{item.tipotransporte}}</td>
+        <td>{{item.placa}}</td>
+        <td>{{item.aprobada }}
+        <td class="flex h-2/6 justify-center items-center">
+
+ 
+          <c-dropdown>
+            <button cButton cDropdownToggle color="secondary" class="bg-slate-400 p-2 text-white rounded-md">
+              Opciones
+            </button>
+            <ul cDropdownMenu>
+              <button [hidden]="!(item.SalidaTemporal && item.Ingreso)"   class="dropdown-item  " >Marcar llegada temporal</button>
+              <button [hidden]="!(!item.SalidaTemporal && item.Ingreso)" (click)="AgregarSalidaTemporal(i)"  class="dropdown-item  " >Marcar salida temporal</button>
+              <button [hidden]="item.Ingreso"                             class="dropdown-item  ">Marcar llegada</button>
+              <button [hidden]="!item.Ingreso"                            class="dropdown-item  ">Marcar salida</button>
+              <button class="dropdown-item" (click)="eliminarAviso(i )">Eliminar</button>
+            </ul>
+          </c-dropdown>
+          
         </td>
       </tr>
     </tbody>
   </table>
 
 
+ 
+
   
 </div>
-</c-card-header>
   </c-card>
+
+
+
+<c-card >
+  <c-card-header>
+    Salidas Temporales
+  </c-card-header>
+
+  <table class="table mt-6  px-5 text-center">
+    <thead>
+      <tr>
+        <th scope="col">Id Solicitud</th>
+        <th scope="col">Salida Temporal</th>
+        <th scope="col">Retorno Temporal</th>
+      </tr>
+    </thead>
+    <tbody class="">
+      
+      <tr *ngFor="let item of SalidaTemporal" >
+        <td>{{item.id}}</td>
+        <td>{{item?.fechaSalida?.toDateString()}}</td>
+        <td>{{item?.fechaEntrada?.toDateString()}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</c-card>
+
 </div>
 

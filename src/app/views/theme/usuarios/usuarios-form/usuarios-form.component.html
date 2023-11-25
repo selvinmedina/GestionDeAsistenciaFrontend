@@ -4,25 +4,25 @@
     <h5 cModalTitle>Editar Usuario</h5>
     <button (click)="cambiarVista()" cButtonClose></button>
   </c-modal-header>
-  <c-modal-body>
+  <c-modal-body [formGroup]="formUsuarios">
 
     <small> Usuario  </small>
-    <input type="text" class="form-control ">
+    <input type="text" class="form-control" formControlName="username">
 
     <small> Nombre  </small>
-    <input type="text" class="form-control ">
+    <input type="text" class="form-control " formControlName="nombre">
 
     <small> Apellido </small>
-    <input type="text" class="form-control ">
+    <input type="text" class="form-control " formControlName="apellido">
 
     <small> Email </small>
-    <input type="email" class="form-control ">
+    <input type="email" class="form-control " formControlName="email">
 
     <small> contraseña </small>
-    <input type="email" class="form-control ">
+    <input type="text" class="form-control " formControlName="contrasenia">
 
     <small> Rol </small>
-    <select name="" id="" class="form-control">
+    <select name="" id="" class="form-control" formControlName="rol">
       <option value="">Administrador</option>
       <option value="">Residente</option>
       <option value="">Guardia</option>
@@ -43,25 +43,25 @@
     <h5 cModalTitle>Registrar Usuario</h5>
     <button (click)="cambiarVistaRegistro()" cButtonClose></button>
   </c-modal-header>
-  <c-modal-body>
+  <c-modal-body [formGroup]="formcrearUsuario" >
 
     <small> Usuario  </small>
-    <input type="text" class="form-control ">
+    <input type="text" class="form-control " formControlName="username">
 
     <small> Nombre  </small>
-    <input type="text" class="form-control ">
+    <input type="text" class="form-control "  formControlName="nombre">
 
     <small> Apellido </small>
-    <input type="text" class="form-control ">
+    <input type="text" class="form-control "  formControlName="apellido">
 
     <small> Email </small>
-    <input type="email" class="form-control ">
+    <input type="email" class="form-control " formControlName="email">
 
     <small> contraseña </small>
-    <input type="email" class="form-control ">
+    <input type="email" class="form-control "  formControlName="contrasenia">
 
     <small> Rol </small>
-    <select name="" id="" class="form-control">
+    <select name="" id="" class="form-control"  formControlName="rol">
       <option value="">Administrador</option>
       <option value="">Residente</option>
       <option value="">Guardia</option>

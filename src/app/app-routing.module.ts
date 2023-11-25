@@ -9,7 +9,7 @@ import { RegisterComponent } from './views/pages/register/register.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'asd',
     redirectTo: 'dashboard',
     pathMatch: 'full'
   },

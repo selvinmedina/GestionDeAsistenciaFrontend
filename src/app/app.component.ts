@@ -10,7 +10,7 @@ import { Title } from '@angular/platform-browser';
   template: '<router-outlet></router-outlet>',
 })
 export class AppComponent implements OnInit {
-  title = 'Gestion de Asistencia - Ceutec';
+  title = 'Gestion de Visita - Ceutec';
 
   constructor(
     private router: Router,

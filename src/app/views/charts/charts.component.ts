@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class ChartsComponent {
 
-  months = ['Enero', 'Febrero', 'Marcho', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+  months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
   chartBarData = {
     labels: [...this.months].slice(0, 7),

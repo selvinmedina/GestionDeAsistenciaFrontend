@@ -1,0 +1,43 @@
+<div class="fade-in">
+  <c-card class="mb-4">
+    <c-card-header>
+      Control de visitas
+    </c-card-header>
+<div class="fade-in overflow-auto ">
+  <table class="table  ">
+    <thead>
+      <tr>
+        <th scope="col">Id Solicitud</th>
+        <th scope="col">Visita</th>
+        <th scope="col">Descripcion</th>
+        <th scope="col">hora de llegada</th>
+        <th scope="col">hora de Salida</th>
+        <th scope="col">Tipo de Transaporte</th>
+        <th scope="col">no de placa</th>
+        <th scope="col"> Aprobada? </th>
+      </tr>
+    </thead>
+    <tbody class="">
+      
+      <tr *ngFor="let item of Visitas; let i = index" >
+        <th scope="row">{{item.id}}</th>
+        <td>{{item.visita.join(',')}}</td>
+        <td>{{item.Descripcion}}</td>
+        <td>{{item?.horallegada?.toDateString()}}</td>
+        <td>{{item?.horasalida?.toDateString()}}</td>
+        <td>{{item.tipotransporte}}</td>
+        <td>{{item.placa}}</td>
+        <td>{{item.aprobada }}
+        <td class="flex h-2/6 justify-center items-center">
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+</div>
+  </c-card>
+
+</div>
+

@@ -36,7 +36,11 @@ export const navItems: INavData[] = [
     url: '/theme/notificarVisitas',
     iconComponent: { name: 'cil-bell' }
   },
-
+  {
+    name: 'Historial de visitas',
+    url: '/theme/historialVisitas',
+    iconComponent: { name: 'cil-cursor' }
+  },
 
   // {
   //   name: 'Charts',

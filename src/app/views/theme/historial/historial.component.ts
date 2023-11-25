@@ -49,33 +49,13 @@ const SalidasTemporales:any =
 
 
 @Component({
-  templateUrl: 'controlVisitas.component.html',
+  templateUrl: 'historial.component.html',
 })
-export class controlVisitasComponent {
+export class HistorialComponent {
   constructor() {}
 
   Visitas = Visitas
   SalidaTemporal = SalidasTemporales
-
   
-
-
-  AgregarSalidaTemporal(i:number){
-    this.SalidaTemporal.push(
-      {
-        id: this.Visitas[i].id,
-        fechaSalida: new Date(),
-      }
-    )
-  }
-
-  eliminarAviso(index:number){
-    this.Visitas.splice(index,1)
-  }
-
-  MarcarRegreso(i:number){
-    this.SalidaTemporal.find((x:any) => x.id === this.Visitas[i].id).fechaEntrada = new Date()
-    this.Visitas[i].SalidaTemporal = true;
-  }
 
 }

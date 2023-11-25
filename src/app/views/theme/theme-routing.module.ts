@@ -5,7 +5,7 @@ import { ColorsComponent } from './usuarios/usuarios.component';
 import { controlVisitasComponent } from './controlVisitas/controlVisitas.component';
 import { ButtonsComponent } from './roles/buttons.component';
 import { notificarVisitasComponent } from './notificarVisitas/notificarVisitas.component';
-
+import {HistorialComponent }  from './historial/historial.component';
 const routes: Routes = [
   {
     path: '',
@@ -46,6 +46,15 @@ const routes: Routes = [
           title: 'Notificar-Visitas',
         },
       },
+      {
+        path: 'historialVisitas',
+        component: HistorialComponent,
+        data: {
+          title: 'historial-Visitas',
+        },
+      },
+      
+      
 
     ],
   },
