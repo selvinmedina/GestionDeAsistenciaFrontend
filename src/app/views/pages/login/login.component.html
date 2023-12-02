@@ -5,16 +5,19 @@
         <c-card-group>
           <c-card class="p-4">
             <c-card-body>
-              <form cForm>
+              <form cForm [formGroup]="loginForm">
                 <h1>Login</h1>
                 <p class="text-medium-emphasis">Iniciar sesión en su cuenta</p>
                 <c-input-group class="mb-3">
                   <span cInputGroupText>
                     <svg cIcon name="cilUser"></svg>
                   </span>
-                  <input autoComplete="username" 
+                  <input
+                    autoComplete="correo"
                     cFormControl
-                    placeholder="Usuario" />
+                    formControlName="email"
+                    placeholder="Correo"
+                  />
                 </c-input-group>
                 <c-input-group class="mb-4">
                   <span cInputGroupText>
@@ -23,13 +26,19 @@
                   <input
                     autoComplete="current-password"
                     cFormControl
+                    formControlName="password"
                     placeholder="Contraseña"
                     type="password"
                   />
                 </c-input-group>
                 <c-row>
                   <c-col xs="6">
-                    <button cButton class="px-4" color="primary">
+                    <button
+                      cButton
+                      class="px-4"
+                      color="success"
+                      (click)="login()"
+                    >
                       Ingresar
                     </button>
                   </c-col>
@@ -42,15 +51,20 @@
               </form>
             </c-card-body>
           </c-card>
-          <c-card [ngStyle]="{'width.%': 44}" class="text-white bg-primary py-5">
+          <c-card
+            [ngStyle]="{ 'width.%': 44 }"
+            class="text-white bg-primary py-5"
+          >
             <c-card-body class="text-center">
-
               <c-card class="mb-4">
                 <c-card-body class="text-center">
-                  <img src="assets/img/personal/Login.png" alt="imagen" class="img-fluid mx-auto">
+                  <img
+                    src="assets/img/personal/Login.png"
+                    alt="imagen"
+                    class="img-fluid mx-auto"
+                  />
                 </c-card-body>
               </c-card>
-
             </c-card-body>
           </c-card>
         </c-card-group>
