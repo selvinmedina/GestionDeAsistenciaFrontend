@@ -1,6 +1,9 @@
-import { ErrorHandlerService } from './shared/services/error-handler.service';
+import { ErrorHandlerService } from './core/services/error-handler.service';
 import { NgModule } from '@angular/core';
-import { HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import {
+  HashLocationStrategy,
+  LocationStrategy,
+} from '@angular/common';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -14,7 +17,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 // Import containers
-import { DefaultFooterComponent, DefaultHeaderComponent, DefaultLayoutComponent } from './containers';
+import {
+  Footer,
+  Header,
+  LayoutComponent,
+} from './containers';
 
 import {
   AvatarModule,
@@ -34,21 +41,20 @@ import {
   SharedModule,
   SidebarModule,
   TabsModule,
-  UtilitiesModule
+  UtilitiesModule,
 } from '@coreui/angular';
 
 import { IconModule, IconSetService } from '@coreui/icons-angular';
-import { UsuariosComponent } from './containers/usuarios/usuarios.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 const APP_CONTAINERS = [
-  DefaultFooterComponent,
-  DefaultHeaderComponent,
-  DefaultLayoutComponent
+  Footer,
+  Header,
+  LayoutComponent,
 ];
 
 @NgModule({
-  declarations: [AppComponent, ...APP_CONTAINERS, UsuariosComponent],
+  declarations: [AppComponent, ...APP_CONTAINERS],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -76,22 +82,21 @@ const APP_CONTAINERS = [
     ListGroupModule,
     CardModule,
     NgScrollbarModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [
     {
       provide: LocationStrategy,
-      useClass: HashLocationStrategy
+      useClass: HashLocationStrategy,
     },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorHandlerService,
-      multi: true
+      multi: true,
     },
     IconSetService,
-    Title
+    Title,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule {
-}
+export class AppModule {}

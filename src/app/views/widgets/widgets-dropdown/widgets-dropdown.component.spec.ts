@@ -4,7 +4,7 @@ import { ButtonModule, DropdownModule, GridModule, WidgetModule } from '@coreui/
 import { IconModule } from '@coreui/icons-angular';
 import { ChartjsModule } from '@coreui/angular-chartjs';
 import { IconSetService } from '@coreui/icons-angular';
-import { iconSubset } from '../../../icons/icon-subset';
+import { iconSubset } from '../../../core/icons/icon-subset';
 import { WidgetsDropdownComponent } from './widgets-dropdown.component';
 
 describe('WidgetsDropdownComponent', () => {

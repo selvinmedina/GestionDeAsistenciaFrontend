@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 
 import { IconSetService } from '@coreui/icons-angular';
-import { iconSubset } from './icons/icon-subset';
+import { iconSubset } from './core/icons/icon-subset';
 import { Title } from '@angular/platform-browser';
 
 @Component({
