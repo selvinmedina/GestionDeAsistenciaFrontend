@@ -1,8 +1,10 @@
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { environment } from 'src/environments/environment';
-import { LoginService } from './../../../services/login.service';
+import { AuthService } from '../../../services/auth.service';
 import { Component } from '@angular/core';
 import { LoginRequest } from './models/login-request.model';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,23 +13,38 @@ import { LoginRequest } from './models/login-request.model';
 })
 export class LoginComponent {
   loginForm: FormGroup;
+  private home: string;
 
   constructor(
-    private loginService: LoginService,
-    private formBuilder: FormBuilder
+    private authService: AuthService,
+    private formBuilder: FormBuilder,
+    private router: Router
   ) {
     this.loginForm = this.formBuilder.group({
       email: '',
       password: '',
     });
+
+    this.home = '/';
   }
 
-  async login() {
-    const email: string = this.loginForm.get('email')?.value;
-    const password: string = this.loginForm.get('password')?.value;
-    const loginRespuesta = await this.loginService.login({ email, password });
-    console.log('loginRespuesta', loginRespuesta);
+  async login(loginFormValue: LoginRequest) {
+    const login = {... loginFormValue };
+    try {
+      const loginRespuesta = await this.authService.login(login);
 
-    // TODO: Verificar que hacer con esta respuesta
+      localStorage.setItem('token', loginRespuesta.accessToken);
+      this.authService.sendAuthStateChangeNotification(true);
+      this.router.navigate([this.home]);
+    } catch (error: any) {
+      if (error.status === 401) {
+        Swal.fire({
+          title: 'Error',
+          text: 'Usuario o contraseña incorrecta',
+          icon: 'error',
+          confirmButtonText: 'OK',
+        });
+      }
+    }
   }
 }

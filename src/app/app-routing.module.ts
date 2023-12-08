@@ -1,9 +1,10 @@
+import { AuthGuard } from './shared/guards/auth.guard';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { DefaultLayoutComponent } from './containers';
 import { Page404Component } from './views/pages/page404/page404.component';
-import { Page500Component } from './views/pages/page500/page500.component';
+import { PageForbiddenComponent } from './views/pages/forbidden/forbidden.component';
 import { LoginComponent } from './views/pages/login/login.component';
 import { RegisterComponent } from './views/pages/register/register.component';
 
@@ -23,7 +24,8 @@ const routes: Routes = [
       {
         path: 'dashboard',
         loadChildren: () =>
-          import('./views/dashboard/dashboard.module').then((m) => m.DashboardModule)
+          import('./views/dashboard/dashboard.module').then((m) => m.DashboardModule),
+          canActivate: [AuthGuard]
       },
       {
         path: 'theme',
@@ -80,10 +82,10 @@ const routes: Routes = [
     }
   },
   {
-    path: '500',
-    component: Page500Component,
+    path: 'PageForbiddenComponent',
+    component: PageForbiddenComponent,
     data: {
-      title: 'Page 500'
+      title: 'Page PageForbiddenComponent'
     }
   },
   {

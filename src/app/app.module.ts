@@ -1,3 +1,4 @@
+import { ErrorHandlerService } from './shared/services/error-handler.service';
 import { NgModule } from '@angular/core';
 import { HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { BrowserModule, Title } from '@angular/platform-browser';
@@ -38,7 +39,7 @@ import {
 
 import { IconModule, IconSetService } from '@coreui/icons-angular';
 import { UsuariosComponent } from './containers/usuarios/usuarios.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -76,12 +77,16 @@ const APP_CONTAINERS = [
     CardModule,
     NgScrollbarModule,
     HttpClientModule
-
   ],
   providers: [
     {
       provide: LocationStrategy,
       useClass: HashLocationStrategy
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorHandlerService,
+      multi: true
     },
     IconSetService,
     Title

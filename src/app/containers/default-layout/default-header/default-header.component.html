@@ -18,7 +18,7 @@
           Inicio
         </a>
       </c-nav-item>
-   
+
     </c-header-nav>
 
     <c-header-nav class="d-none d-lg-flex">
@@ -51,7 +51,7 @@
 <!--</c-header>-->
 
 <ng-template #userDropdown>
-  <c-dropdown alignment="end" variant="nav-item">
+  <c-dropdown alignment="end" variant="nav-item" *ngIf="isAuthenticated">
     <button
       cButton
       color=""
@@ -82,54 +82,7 @@
         </a>
       </li>
       <li>
-        <a routerLink="./" cDropdownItem>
-          <svg cIcon class="me-2" name="cilEnvelopeOpen"></svg>
-          Mensajes
-          <c-badge class="ms-2 float-end" color="success">
-            25
-          </c-badge>
-        </a>
-      </li>
-      <li>
-        <a routerLink="./" cDropdownItem>
-          <svg cIcon class="me-2" name="cilTask"></svg>
-          Aprobar
-          <c-badge class="ms-2 float-end" color="danger">
-            15
-          </c-badge>
-        </a>
-      </li>
-      <li>
-        <a routerLink="./" cDropdownItem>
-          <svg cIcon class="me-2" name='cilCommentSquare'></svg>
-          Comentarios
-          <c-badge class="ms-auto" color="warning">
-            28
-          </c-badge>
-        </a>
-      </li>
-      <li>
-        <h6 cDropdownHeader class="bg-light fw-semibold py-2">Configurar</h6>
-      </li>
-      <li></li>
-      <li>
-        <a routerLink="./" cDropdownItem>
-          <svg cIcon class="me-2" name="cilUser"></svg>
-          Perfil
-        </a>
-      </li>
-      <li>
-        <a routerLink="./" cDropdownItem>
-          <svg cIcon class="me-2" name="cilSettings"></svg>
-          Configurar
-        </a>
-      </li>
-      
-      <li>
-        <hr cDropdownDivider/>
-      </li>
-      <li>
-        <a routerLink="./" cDropdownItem>
+        <a (click)="logout()" cDropdownItem>
           <svg cIcon class="me-2" name="cilLockLocked"></svg>
           Cerrar Sesion
         </a>
