@@ -38,6 +38,7 @@ export class TokenInterceptor implements HttpInterceptor {
         if (error instanceof HttpErrorResponse && error.status === 401) {
           return this.handle401Error(request, next);
         } else {
+          this.router.navigate(['/login']);
           return throwError(error);
         }
       })
@@ -56,30 +57,36 @@ export class TokenInterceptor implements HttpInterceptor {
     if (!this.isRefreshing) {
       this.isRefreshing = true;
       this.refreshTokenSubject.next(null);
+      this.router.navigate(['/login']);
+      // const refreshToken = localStorage.getItem('refreshToken');
 
-      const refreshToken = localStorage.getItem('refreshToken');
-
-      if (refreshToken) {
-        return this.authService.refreshToken(refreshToken).pipe(
-          switchMap((token: any) => {
-            this.isRefreshing = false;
-            this.refreshTokenSubject.next(token.accessToken);
-            return next.handle(this.addToken(request, token.accessToken));
-          }),
-          catchError((err) => {
-            this.isRefreshing = false;
-            this.authService.logout();
-            return throwError(err);
-          }),
-          finalize(() => {
-            this.isRefreshing = false;
-          })
-        );
-      } else {
-        this.isRefreshing = false;
-        this.authService.logout();
-        this.router.navigate(['/login']);
-      }
+      // if (refreshToken) {
+      //   try {
+      //     return this.authService.refreshToken(refreshToken).pipe(
+      //       switchMap((token: any) => {
+      //         this.isRefreshing = false;
+      //         this.refreshTokenSubject.next(token.accessToken);
+      //         return next.handle(this.addToken(request, token.accessToken));
+      //       }),
+      //       catchError((err) => {
+      //         alert('ok');
+      //         this.isRefreshing = false;
+      //         this.authService.logout();
+      //         this.router.navigate(['/login']);
+      //         return throwError(err);
+      //       }),
+      //       finalize(() => {
+      //         this.isRefreshing = false;
+      //       })
+      //     );
+      //   } catch (error) {
+      //     this.router.navigate(['/login']);
+      //   }
+      // } else {
+      //   this.isRefreshing = false;
+      //   this.authService.logout();
+      //   this.router.navigate(['/login']);
+      // }
     }
 
     return this.refreshTokenSubject.pipe(

@@ -12,6 +12,7 @@ import {
   map,
   of,
   tap,
+  throwError,
 } from 'rxjs';
 
 @Injectable({
@@ -51,6 +52,15 @@ export class AuthService {
         localStorage.setItem('refreshToken', tokens.refreshToken);
         // Actualiza el BehaviorSubject
         this.currentTokenSubject.next(tokens.accessToken);
+      }),
+      catchError((error) => {
+        // Si hay un error, elimina el token de acceso y el token de actualización del almacenamiento local
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+        // Actualiza el BehaviorSubject
+        this.currentTokenSubject.next('');
+        // Devuelve el error
+        return throwError(error);
       })
     );
   }

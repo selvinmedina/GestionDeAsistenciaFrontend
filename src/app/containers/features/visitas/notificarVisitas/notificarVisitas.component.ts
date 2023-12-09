@@ -1,7 +1,13 @@
 import { VisitasService } from '@core/services/visitas.service';
 import { TiposDeTransporteService } from '@core/services/tipos-de-transporte.service';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormArray,
+  FormControl,
+  Validators,
+} from '@angular/forms';
 import { TipoDeTransporte } from '@models/visitas/tipos-de-transporte/tipo-de-transporte.model';
 import Swal from 'sweetalert2';
 
@@ -37,16 +43,25 @@ export class NotificarVisitasComponent implements OnInit {
       detallesVisita: this.formularioVisitantes,
     });
 
-    // Agrega un visitante inicial con validadores
     this.agregarInputVisitante();
+    this.agregarInputTransporte();
   }
 
   agregarInputVisitante() {
     this.formularioVisitantes.push(
       new FormGroup({
-        identidad: new FormControl('', [Validators.required, Validators.pattern(/^\d+$/)]), // Requerido y solo números
-        nombre: new FormControl('', [Validators.required, Validators.minLength(2)]), // Requerido y mínimo 2 caracteres
-        apellido: new FormControl('', [Validators.required, Validators.minLength(2)]) // Requerido y mínimo 2 caracteres
+        identidad: new FormControl('', [
+          Validators.required,
+          Validators.pattern(/^\d+$/),
+        ]), // Requerido y solo números
+        nombre: new FormControl('', [
+          Validators.required,
+          Validators.minLength(2),
+        ]), // Requerido y mínimo 2 caracteres
+        apellido: new FormControl('', [
+          Validators.required,
+          Validators.minLength(2),
+        ]), // Requerido y mínimo 2 caracteres
       })
     );
   }
@@ -55,12 +70,14 @@ export class NotificarVisitasComponent implements OnInit {
     this.formularioTransporte.push(
       new FormGroup({
         tipoTransporteId: new FormControl('', Validators.min(1)), // El valor debe ser mayor que 0 para ser válido
-        placa: new FormControl('', [Validators.required, Validators.pattern(/^[A-Z0-9]+$/i)]), // Requerido y solo caracteres alfanuméricos
-        color: new FormControl('', Validators.required) // Requerido
+        placa: new FormControl('', [
+          Validators.required,
+          Validators.pattern(/^[A-Z0-9]+$/i),
+        ]), // Requerido y solo caracteres alfanuméricos
+        color: new FormControl('', Validators.required), // Requerido
       })
     );
   }
-
 
   obtenerTiposDeTransporte() {
     this.tiposDeTransporteService
@@ -76,6 +93,19 @@ export class NotificarVisitasComponent implements OnInit {
 
   removerInputIdentidad(i: number) {
     this.formularioVisitantes.removeAt(i);
+  }
+
+  resetFormulario() {
+    // Restablecer el formulario completo
+    this.formulario.reset();
+
+    // Restablecer los FormArrays específicos si es necesario
+    this.formularioVisitantes.clear();
+    this.formularioTransporte.clear();
+
+    // Agregar de nuevo un grupo inicial si es necesario
+    this.agregarInputVisitante();
+    this.agregarInputTransporte();
   }
 
   notificarVisita() {
@@ -112,6 +142,8 @@ export class NotificarVisitasComponent implements OnInit {
           title: 'Visita agregada con éxito',
           text: 'La visita se agregó correctamente.',
         });
+
+        this.resetFormulario();
       },
       error: (error: any) => {
         Swal.close();

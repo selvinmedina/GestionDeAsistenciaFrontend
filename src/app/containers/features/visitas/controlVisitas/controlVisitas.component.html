@@ -1,88 +1,57 @@
 <div class="fade-in">
   <c-card class="mb-4">
-    <c-card-header>
-      Control de Visitas
-    </c-card-header>
-<div class="fade-in text-center">
-  <table class="table ">
-    <thead>
-      <tr>
-        <th scope="col">Id solicitud</th>
-        <th scope="col">Visita</th>
-        <th scope="col">Descripcion</th>
-        <th scope="col">Hora de llegada</th>
-        <th scope="col">Hora de salida</th>
-        <th scope="col">Tipo de transaporte</th>
-        <th scope="col">N° de placa</th>
-        <th scope="col"> Aprobada? </th>
-        <th scope="col">Opciones</th>
-      </tr>
-    </thead>
-    <tbody class="">
-      
-      <tr *ngFor="let item of Visitas; let i = index" >
-        <th scope="row">{{item.id}}</th>
-        <td>{{item.visita.join(',')}}</td>
-        <td>{{item.Descripcion}}</td>
-        <td>{{item?.horallegada?.toDateString()}}</td>
-        <td>{{item?.horasalida?.toDateString()}}</td>
-        <td>{{item.tipotransporte}}</td>
-        <td>{{item.placa}}</td>
-        <td>{{item.aprobada }}
-        <td class="flex h-2/6 justify-center items-center">
-
- 
-          <c-dropdown>
-            <button cButton cDropdownToggle color="secondary" class="bg-slate-400 p-2 text-white rounded-md">
-              Opciones
-            </button>
-            <ul cDropdownMenu>
-              <button [hidden]="!(item.SalidaTemporal && item.Ingreso)"   class="dropdown-item  " >Marcar llegada temporal</button>
-              <button [hidden]="!(!item.SalidaTemporal && item.Ingreso)" (click)="AgregarSalidaTemporal(i)"  class="dropdown-item  " >Marcar salida temporal</button>
-              <button [hidden]="item.Ingreso"                             class="dropdown-item  ">Marcar llegada</button>
-              <button [hidden]="!item.Ingreso"                            class="dropdown-item  ">Marcar salida</button>
-              <button class="dropdown-item" (click)="eliminarAviso(i )">Eliminar</button>
-            </ul>
-          </c-dropdown>
-          
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
-
- 
-
-  
-</div>
+    <c-card-header>Control de Visitas</c-card-header>
+    <div class="fade-in text-center">
+      <table striped cTable class="table">
+        <thead>
+          <tr>
+            <th scope="col">Visita Id</th>
+            <th scope="col">Fecha Entrada</th>
+            <th scope="col">Fecha Salida</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Comentarios</th>
+            <th scope="col">Comentarios Persona que Recibe</th>
+            <th scope="col">Transporte</th>
+            <th scope="col">Detalle Visita</th>
+            <th scope="col">Acciones</th> <!-- Nueva columna para acciones -->
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let visita of visitas; let i = index">
+            <!-- Fila de información principal de la visita -->
+            <tr>
+              <td>{{ visita.id }}</td>
+              <td>{{ visita.fechaEntrada }}</td>
+              <td>{{ visita.fechaSalida }}</td>
+              <td>{{ visita.estado }}</td>
+              <td>{{ visita.comentarios }}</td>
+              <td>{{ visita.comentarioPersonaQueRecibe }}</td>
+              <td>
+                <!-- Concatenar detalles de transporte en una lista -->
+                <ul>
+                  <li *ngFor="let transporte of visita.asignacionesTransporte">
+                    {{ transporte.placa }} - {{ transporte.color }}
+                  </li>
+                </ul>
+              </td>
+              <td>
+                <!-- Concatenar detalles de visita en una lista -->
+                <ul>
+                  <li *ngFor="let detalleVisita of visita.detalleVisita">
+                    {{ detalleVisita.nombre }} {{ detalleVisita.apellido }}
+                  </li>
+                </ul>
+              </td>
+              <td>
+                <!-- Botones de acción -->
+                <button class="btn btn-primary btn-sm" (click)="marcarEntrada(visita.id)" *ngIf="!visita.fechaEntrada">Marcar Entrada</button>
+                <button class="btn btn-secondary btn-sm" (click)="registrarSalida(visita.id)" *ngIf="visita.fechaEntrada && !visita.fechaSalida">Registrar Salida</button>
+                <button class="btn btn-danger btn-sm" (click)="eliminarVisita(visita.id)">Eliminar</button>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
   </c-card>
-
-
-
-<c-card >
-  <c-card-header>
-    Salidas Temporales
-  </c-card-header>
-
-  <table class="table mt-6  px-5 text-center">
-    <thead>
-      <tr>
-        <th scope="col">Id Solicitud</th>
-        <th scope="col">Salida Temporal</th>
-        <th scope="col">Retorno Temporal</th>
-      </tr>
-    </thead>
-    <tbody class="">
-      
-      <tr *ngFor="let item of SalidaTemporal" >
-        <td>{{item.id}}</td>
-        <td>{{item?.fechaSalida?.toDateString()}}</td>
-        <td>{{item?.fechaEntrada?.toDateString()}}</td>
-      </tr>
-    </tbody>
-  </table>
-
-</c-card>
-
 </div>
-

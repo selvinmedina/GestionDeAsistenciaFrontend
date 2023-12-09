@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NotificarVisitasComponent } from '@visitas/notificarVisitas/notificarVisitas.component';
-// ruta main:Visitas, hijas, componentes
+import { ControlVisitasComponent } from '@visitas/controlVisitas/controlVisitas.component';
+
 const routes: Routes = [
   {
     data: {
@@ -9,6 +10,13 @@ const routes: Routes = [
     },
     path: 'notificar',
     component: NotificarVisitasComponent,
+  },
+  {
+    data: {
+      title: 'Control de Visitas',
+    },
+    path: 'control',
+    component: ControlVisitasComponent,
   },
 ];
 

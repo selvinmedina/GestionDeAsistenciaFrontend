@@ -7,17 +7,12 @@ export const navItems: INavData[] = [
   },
   {
     name: 'Control de Visitas',
-    url: '/theme/typography',
+    url: '/visitas/control',
     iconComponent: { name: 'cil-notes' }
   },
   {
     name: 'Notificar Visita',
     url: '/visitas/notificar',
     iconComponent: { name: 'cil-bell' }
-  },
-  {
-    name: 'Historial de visitas',
-    url: '/theme/historialVisitas',
-    iconComponent: { name: 'cil-cursor' }
   },
 ];

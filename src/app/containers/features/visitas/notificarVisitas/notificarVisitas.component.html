@@ -7,73 +7,116 @@
       </c-card-header>
       <c-card-body class="d-flex flex-wrap">
         <form [formGroup]="formulario" class="w-100">
-          <fieldset formArrayName="detallesVisita" class="mb-3">
-            <legend class="text-base px-4">Personas</legend>
-            <div class="mb-3">
-              <div>
-                <div
-                  class="flex md:flex-row md:gap-10 flex-col"
-                  formGroupName="{{ i }}"
-                  *ngFor="
-                    let visitante of formularioVisitantes.controls;
-                    let i = index
+          <!-- Fieldset para detalles de visita (Personas) -->
+          <fieldset
+            formArrayName="detallesVisita"
+            class="mb-4 p-3 border rounded"
+          >
+            <legend class="text-base fw-bold mb-3">Personas</legend>
+            <div
+              class="flex md:flex-row md:gap-10 flex-col"
+              formGroupName="{{ i }}"
+              *ngFor="
+                let visitante of formularioVisitantes.controls;
+                let i = index
+              "
+            >
+              <!-- Nombre -->
+              <div class="w-full md:w-50">
+                <label cLabel class="me-2" for="nombre{{ i }}">Nombre:</label>
+                <input
+                  cFormControl
+                  class="form-control"
+                  id="nombre{{ i }}"
+                  formControlName="nombre"
+                  placeholder="Nombre"
+                  type="text"
+                  [class.is-invalid]="
+                    visitante.get('nombre')?.invalid &&
+                    visitante.get('nombre')?.touched
                   "
+                />
+                <div
+                  *ngIf="
+                    visitante.get('nombre')?.invalid &&
+                    visitante.get('nombre')?.touched
+                  "
+                  class="invalid-feedback"
                 >
-                  <div class="w-full md:w-50">
-                    <label cLabel class="me-2">Nombre:</label>
-                    <input
-                      cFormControl
-                      class="form-control"
-                      id="exampleFormControlInput1"
-                      placeholder=""
-                      formControlName="nombre"
-                      type=""
-                    />
-                  </div>
-                  <div class="w-full md:w-50">
-                    <label cLabel class="me-2">Apellido:</label>
-                    <input
-                      cFormControl
-                      class="form-control"
-                      id="exampleFormControlInput1"
-                      placeholder=""
-                      formControlName="apellido"
-                      type=""
-                    />
-                  </div>
-                  <div class="w-full md:w-50">
-                    <small
-                      cLabel
-                      for="exampleFormControlInput1"
-                      class="mt-3 me-2"
-                      >Identidad:</small
-                    >
-                    <input
-                      cFormControl
-                      class="form-control"
-                      id="exampleFormControlInput1"
-                      placeholder=""
-                      formControlName="identidad"
-                      type=""
-                    />
-                  </div>
-                  <button
-                    [hidden]="i == 0"
-                    class="text-white mt-4 bg-red-400 p-2 px-4 rounded flex justify-center items-center"
-                    (click)="removerInputIdentidad(i)"
-                  >
-                    X
-                  </button>
-                  <button
-                    disabled
-                    [hidden]="!(i == 0)"
-                    class="invisible text-white mt-4 bg-red-400 p-2 px-4 rounded flex justify-center items-center"
-                    (click)="removerInputIdentidad(i)"
-                  >
-                    X
-                  </button>
+                  Nombre es requerido.
                 </div>
               </div>
+              <!-- Apellido -->
+              <div class="w-full md:w-50">
+                <label cLabel class="me-2" for="apellido{{ i }}"
+                  >Apellido:</label
+                >
+                <input
+                  cFormControl
+                  class="form-control"
+                  id="apellido{{ i }}"
+                  formControlName="apellido"
+                  placeholder="Apellido"
+                  type="text"
+                  [class.is-invalid]="
+                    visitante.get('apellido')?.invalid &&
+                    visitante.get('apellido')?.touched
+                  "
+                />
+                <div
+                  *ngIf="
+                    visitante.get('apellido')?.invalid &&
+                    visitante.get('apellido')?.touched
+                  "
+                  class="invalid-feedback"
+                >
+                  Apellido es requerido.
+                </div>
+              </div>
+
+              <!-- Identidad -->
+              <div class="w-full md:w-50">
+                <label cLabel class="me-2" for="identidad{{ i }}"
+                  >Identidad:</label
+                >
+                <input
+                  cFormControl
+                  class="form-control"
+                  id="identidad{{ i }}"
+                  formControlName="identidad"
+                  placeholder="Identidad"
+                  type="text"
+                  [class.is-invalid]="
+                    visitante.get('identidad')?.invalid &&
+                    visitante.get('identidad')?.touched
+                  "
+                />
+                <div
+                  *ngIf="
+                    visitante.get('identidad')?.invalid &&
+                    visitante.get('identidad')?.touched
+                  "
+                  class="invalid-feedback"
+                >
+                  Identidad es requerida y debe ser numérica.
+                </div>
+              </div>
+
+              <button
+                [hidden]="i == 0"
+                class="text-white mt-4 bg-red-400 p-2 px-4 rounded flex justify-center items-center"
+                (click)="removerInputIdentidad(i)"
+              >
+                X
+              </button>
+              <button
+                disabled
+                [hidden]="!(i == 0)"
+                class="invisible text-white mt-4 bg-red-400 p-2 px-4 rounded flex justify-center items-center"
+                (click)="removerInputIdentidad(i)"
+              >
+                X
+              </button>
             </div>
 
             <div class="w-full justify-end items-end flex mt-2">
@@ -87,69 +130,101 @@
             </div>
           </fieldset>
 
+          <!-- Fieldset para asignaciones de transporte -->
           <fieldset
             formArrayName="asignacionesTransporte"
-            class="mt-3"
+            class="mb-4 p-3 border rounded"
           >
-            <legend class="text-base px-4">Transporte</legend>
+            <legend class="text-base fw-bold mb-3">Transportes</legend>
 
             <div
-              class="mt-2 flex gap-2 flex-wrap p-2 rounded-2 justify-center items-center flex-col md:flex-row"
-              id="exampleFormControlInput1"
+              class="flex md:flex-row md:gap-10 flex-col"
               [formGroupName]="i"
               *ngFor="
                 let fields of formularioTransporte.controls;
                 let i = index
               "
             >
-              <div class="w-full md:w-3/12">
-                <small
-                  cLabel
-                  for="exampleFormControlInput1"
-                  class="mt-3 overflow-auto"
-                  >Tipo de Transporte</small
+              <div class="w-full md:w-50">
+                <label cLabel for="tipoTransporte{{ i }}"
+                  >Tipo de Transporte</label
                 >
                 <select
                   formControlName="tipoTransporteId"
-                  aria-label="Seleccionar"
+                  id="tipoTransporte{{ i }}"
                   cSelect
+                  class="form-control"
+                  [class.is-invalid]="
+                    fields.get('tipoTransporteId')?.invalid &&
+                    fields.get('tipoTransporteId')?.touched
+                  "
                 >
+                  <option value="">Seleccione un tipo</option>
                   <option
                     *ngFor="let tipo of tiposDeTransporte"
-                    value="{{ tipo.id }}"
+                    [value]="tipo.id"
                   >
                     {{ tipo.nombre }}
                   </option>
                 </select>
+                <div
+                  *ngIf="
+                    fields.get('tipoTransporteId')?.invalid &&
+                    fields.get('tipoTransporteId')?.touched
+                  "
+                  class="invalid-feedback"
+                >
+                  Por favor, seleccione un tipo de transporte.
+                </div>
               </div>
 
-              <div class="w-full md:w-2/12">
-                <small> Placa: </small>
+              <div class="w-full md:w-50">
+                <label for="placa{{ i }}">Placa:</label>
                 <input
                   type="text"
                   cFormControl
                   class="form-control"
-                  id="exampleFormControlInput1"
+                  id="placa{{ i }}"
                   formControlName="placa"
-                  type=""
+                  [class.is-invalid]="
+                    fields.get('placa')?.invalid && fields.get('placa')?.touched
+                  "
                 />
+                <div
+                  *ngIf="
+                    fields.get('placa')?.invalid && fields.get('placa')?.touched
+                  "
+                  class="invalid-feedback"
+                >
+                  Placa es requerida y debe ser alfanumérica.
+                </div>
               </div>
 
-              <div class="w-full md:w-2/12">
-                <small>Color: </small>
+              <div class="w-full md:w-50">
+                <label for="color{{ i }}">Color:</label>
                 <input
                   type="text"
                   cFormControl
                   class="form-control"
-                  id="exampleFormControlInput1"
+                  id="color{{ i }}"
                   formControlName="color"
-                  placeholder=""
-                  type=""
+                  [class.is-invalid]="
+                    fields.get('color')?.invalid && fields.get('color')?.touched
+                  "
                 />
+                <div
+                  *ngIf="
+                    fields.get('color')?.invalid && fields.get('color')?.touched
+                  "
+                  class="invalid-feedback"
+                >
+                  Color es requerido.
+                </div>
               </div>
 
               <button
-                class="text-white mt-4 bg-red-400 p-2 rounded flex justify-center items-center w-full md:w-10"
+                [hidden]="i == 0"
+                class="text-white mt-4 bg-red-400 p-2 px-4 rounded flex justify-center items-center"
                 (click)="removerInputTransporte(i)"
               >
                 X
@@ -168,17 +243,33 @@
           </div>
 
           <div class="mt-2">
-            <small cLabel for="exampleFormControlInput1" class="mt-3"
-              >Comentario adicional:</small
+            <label cLabel for="comentarios" class="mt-3"
+              >Comentario adicional:</label
             >
             <textarea
               cFormControl
               class="form-control"
+              id="comentarios"
               formControlName="comentarios"
+              [class.is-invalid]="
+                formulario.get('comentarios')?.invalid &&
+                formulario.get('comentarios')?.touched
+              "
+              placeholder="Ingrese un comentario"
             ></textarea>
+            <div
+              *ngIf="
+                formulario.get('comentarios')?.invalid &&
+                formulario.get('comentarios')?.touched
+              "
+              class="invalid-feedback"
+            >
+              El comentario es requerido.
+            </div>
           </div>
+
           <button
-            class="btn btn-primary mt-2 bg-green-700 border-none"
+            class="btn btn-primary mt-3 bg-green-700 border-none"
             type="button"
             (click)="notificarVisita()"
           >
@@ -186,13 +277,14 @@
           </button>
         </form>
 
-        <div class="w-50 ms-4 hidden lg:block">
-          <img
-            class="w-100 h-100 rounded-5"
-            src="assets/img/personal/agendarCitas.jpg"
-            alt=""
-            srcset=""
-          />
+        <div class="row mt-3">
+          <div class="col-lg-6 mx-auto">
+            <img
+              class="w-100 rounded-5"
+              src="assets/img/personal/agendarCitas.jpg"
+              alt="Agendar Citas"
+            />
+          </div>
         </div>
       </c-card-body>
     </c-card>
