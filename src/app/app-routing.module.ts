@@ -1,4 +1,4 @@
-import { AuthGuard } from './core/guards/auth.guard';
+import { AuthGuard } from '@core/guards/auth.guard';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -8,39 +8,27 @@ import { PageForbiddenComponent } from './views/pages/forbidden/forbidden.compon
 
 const routes: Routes = [
   {
-    path: 'asd',
-    redirectTo: 'dashboard',
-    pathMatch: 'full'
-  },
-  {
     path: '',
     component: LayoutComponent,
     data: {
-      title: 'Home'
+      title: 'Home',
     },
-    children: [
-      {
-        path: 'pages',
-        loadChildren: () =>
-          import('./views/pages/pages.module').then((m) => m.PagesModule)
-      },
-    ]
+    canActivate: [AuthGuard],
   },
   {
     path: '404',
     component: Page404Component,
     data: {
-      title: 'Page 404'
-    }
+      title: 'Page 404',
+    },
   },
   {
     path: 'PageForbiddenComponent',
     component: PageForbiddenComponent,
     data: {
-      title: 'Page PageForbiddenComponent'
-    }
-  },
-  {path: '**', redirectTo: 'dashboard'}
+      title: 'Page PageForbiddenComponent',
+    },
+  }
 ];
 
 @NgModule({
@@ -48,11 +36,10 @@ const routes: Routes = [
     RouterModule.forRoot(routes, {
       scrollPositionRestoration: 'top',
       anchorScrolling: 'enabled',
-      initialNavigation: 'enabledBlocking'
+      initialNavigation: 'enabledBlocking',
       // relativeLinkResolution: 'legacy'
-    })
+    }),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule {}

@@ -7,8 +7,8 @@ import {ReactiveFormsModule} from '@angular/forms';
   templateUrl: './notificarVisitas.component.html',
   styleUrls: ['./form-controls.component.scss'],
 })
-export class notificarVisitasComponent implements OnInit {
-  
+export class NotificarVisitasComponent implements OnInit {
+
   formulario!: FormGroup;
   FormulariosTransporte!:FormArray;
   FormulariosVisitantes!:FormArray;
@@ -26,8 +26,8 @@ export class notificarVisitasComponent implements OnInit {
       comentario: new FormControl(''),
       transportes: this.FormulariosTransporte,
       visitantes: this.FormulariosVisitantes
-    }) 
-    
+    })
+
     this.FormulariosVisitantes.push(new FormGroup(
       {
         identidad: new FormControl(''),
@@ -59,7 +59,7 @@ export class notificarVisitasComponent implements OnInit {
   }
 
 
-  
+
   agregarInputIdentidadExtra(){
     this.FormulariosVisitantes.push(new FormGroup(
       {

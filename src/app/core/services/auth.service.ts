@@ -3,7 +3,16 @@ import { LoginResponse } from '@models/login/login-response.model';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { HttpClient } from '@angular/common/http';
-import { Subject, lastValueFrom } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+  Subject,
+  catchError,
+  lastValueFrom,
+  map,
+  of,
+  tap,
+} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -11,10 +20,19 @@ import { Subject, lastValueFrom } from 'rxjs';
 export class AuthService {
   private authChangeSub = new Subject<boolean>();
   public authChanged = this.authChangeSub.asObservable();
+  public currentTokenSubject;
 
   constructor(private http: HttpClient) {
     const urlApi = environment.Api;
     console.log(urlApi);
+
+    this.currentTokenSubject = new BehaviorSubject<string>(
+      localStorage.getItem('accessToken') || ''
+    );
+  }
+
+  public get currentToken(): string {
+    return this.currentTokenSubject.value;
   }
 
   async login(body: LoginRequest): Promise<LoginResponse> {
@@ -24,12 +42,16 @@ export class AuthService {
     return await lastValueFrom(this.http.post<LoginResponse>(url, body));
   }
 
-  async refreshToken(refreshToken: string): Promise<LoginResponse> {
-    const url = `${environment.Api}/visit/identity/refresh-token`;
-    console.log(url);
-
-    return await lastValueFrom(
-      this.http.post<LoginResponse>(url, { refreshToken })
+  public refreshToken(refreshToken: string): Observable<any> {
+    const url = `${environment.Api}/visit/identity/refresh`;
+    return this.http.post(url, { refreshToken }).pipe(
+      tap((tokens: any) => {
+        // Guarda el nuevo access token y refresh token en el almacenamiento local
+        localStorage.setItem('accessToken', tokens.accessToken);
+        localStorage.setItem('refreshToken', tokens.refreshToken);
+        // Actualiza el BehaviorSubject
+        this.currentTokenSubject.next(tokens.accessToken);
+      })
     );
   }
 
@@ -38,17 +60,23 @@ export class AuthService {
   };
 
   public logout = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
     this.sendAuthStateChangeNotification(false);
   };
 
-  public isUserAuthenticated = (): boolean => {
-    const token = localStorage.getItem('token');
-
-    if (!token) {
-      return false;
+  public isUserAuthenticated(): Observable<boolean> {
+    const url = `${environment.Api}/visit/identity/manage/info`;
+    try {
+      return this.http.get<boolean>(url).pipe(
+        map(() => true), // Si la petición es exitosa, el token es válido
+        catchError((error) => {
+          // Si el servidor retorna un error, considera que el usuario no está autenticado
+          return of(false);
+        })
+      );
+    } catch (error) {
+      return of(false);
     }
-
-    return true;
-  };
+  }
 }

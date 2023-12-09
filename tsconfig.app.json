@@ -13,6 +13,7 @@
       "@visitas/*": ["./src/app/containers/features/visitas/*"],
       "@seguridad/*": ["./src/app/containers/features/seguridad/*"],
       "@shared/*": ["./src/app/shared/*"],
+      "@app/*": ["./src/app/*"],
     }
   },
   "files": [

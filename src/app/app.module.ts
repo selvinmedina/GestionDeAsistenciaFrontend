@@ -1,5 +1,5 @@
+import { PagesModule } from './views/pages/pages.module';
 import { VisitasModule } from '@visitas/visitas.module';
-import { ErrorHandlerService } from './core/services/error-handler.service';
 import { NgModule } from '@angular/core';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
@@ -20,10 +20,11 @@ import { Footer, Header, LayoutComponent } from './containers';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { SharedAppModule } from '@shared/shared.module';
+import { TokenInterceptor } from '@core/interceptors/token-interceptor';
 
 const APP_CONTAINERS = [Footer, Header, LayoutComponent];
 
-const APP_MODULES = [SeguridadModule, VisitasModule];
+const APP_MODULES = [SeguridadModule, VisitasModule, PagesModule];
 
 @NgModule({
   declarations: [AppComponent, ...APP_CONTAINERS],
@@ -42,9 +43,9 @@ const APP_MODULES = [SeguridadModule, VisitasModule];
     },
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: ErrorHandlerService,
-      multi: true,
-    },
+      useClass: TokenInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent],
   exports: [ReactiveFormsModule],

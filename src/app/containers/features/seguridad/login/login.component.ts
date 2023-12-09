@@ -28,11 +28,13 @@ export class LoginComponent {
   }
 
   async login(loginFormValue: LoginRequest) {
-    const login = {... loginFormValue };
+    const login = { ...loginFormValue };
     try {
       const loginRespuesta = await this.authService.login(login);
 
-      localStorage.setItem('token', loginRespuesta.accessToken);
+      localStorage.setItem('accessToken', loginRespuesta.accessToken);
+      localStorage.setItem('refreshToken', loginRespuesta.refreshToken);
+      this.authService.currentTokenSubject.next(loginRespuesta.accessToken);
       this.authService.sendAuthStateChangeNotification(true);
       this.router.navigate([this.home]);
     } catch (error: any) {
