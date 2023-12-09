@@ -1,6 +1,7 @@
+import { TiposDeTransporteService } from '@core/services/tipos-de-transporte.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
-import {ReactiveFormsModule} from '@angular/forms';
+import { TipoDeTransporte } from '@models/visitas/tipos-de-transporte/tipo-de-transporte.model';
 
 @Component({
   selector: 'app-form-controls',
@@ -8,80 +9,78 @@ import {ReactiveFormsModule} from '@angular/forms';
   styleUrls: ['./form-controls.component.scss'],
 })
 export class NotificarVisitasComponent implements OnInit {
-
   formulario!: FormGroup;
-  FormulariosTransporte!:FormArray;
-  FormulariosVisitantes!:FormArray;
+  formularioTransporte!: FormArray;
+  formularioVisitantes!: FormArray;
+  tiposDeTransporte: TipoDeTransporte[];
+  tipoDeTransporte: string | null;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private tiposDeTransporteService: TiposDeTransporteService
+  ) {
+    this.tiposDeTransporte = [];
+    this.tipoDeTransporte = null;
+  }
 
   ngOnInit(): void {
-
-    this.FormulariosTransporte = this.formBuilder.array([])
-    this.FormulariosVisitantes = this.formBuilder.array([])
+    this.obtenerTiposDeTransporte();
+    this.formularioTransporte = this.formBuilder.array([]);
+    this.formularioVisitantes = this.formBuilder.array([]);
 
     this.formulario = this.formBuilder.group({
-      fechaEntrada: new FormControl(''),
-      fechaSalida: new FormControl(''),
-      comentario: new FormControl(''),
-      transportes: this.FormulariosTransporte,
-      visitantes: this.FormulariosVisitantes
-    })
+      comentarios: new FormControl(''),
+      asignacionesTransporte: this.formularioTransporte,
+      detallesVisita: this.formularioVisitantes,
+    });
 
-    this.FormulariosVisitantes.push(new FormGroup(
-      {
+    this.formularioVisitantes.push(
+      new FormGroup({
         identidad: new FormControl(''),
-        residente: new FormControl(''),
-      }
-      ));
-
+        nombre: new FormControl(''),
+        apellido: new FormControl(''),
+      })
+    );
   }
 
+  obtenerTiposDeTransporte() {
+    this.tiposDeTransporteService
+      .obtenerTiposDeTransportes()
+      .subscribe((res) => {
+        this.tiposDeTransporte = res;
+      });
+  }
 
-  agregarInputExtra(){
-    this.FormulariosTransporte.push(new FormGroup(
-      {
-        tipoTransporte: new FormControl(''),
+  agregarInputTransporte() {
+    this.formularioTransporte.push(
+      new FormGroup({
+        tipoTransporteId: new FormControl(0),
         placa: new FormControl(''),
         color: new FormControl(''),
-        NombreEmpresa: new FormControl(''),
-
-      }
-      ));
+      })
+    );
   }
 
-  obtenerValoresTransporte(){
-    return this.FormulariosTransporte.value
-  }
-
-  removerInputTransporte(i: number){
-    this.FormulariosTransporte.removeAt(i);
-  }
-
-
-
-  agregarInputIdentidadExtra(){
-    this.FormulariosVisitantes.push(new FormGroup(
-      {
+  agregarInputVisitante() {
+    this.formularioVisitantes.push(
+      new FormGroup({
         identidad: new FormControl(''),
-        residente: new FormControl(''),
-      }
-      ));
+        nombre: new FormControl(''),
+        apellido: new FormControl(''),
+      })
+    );
   }
 
-  obtenerValoresIdentidad(){
-    return this.FormulariosVisitantes.value
+  removerInputTransporte(i: number) {
+    this.formularioTransporte.removeAt(i);
   }
 
-  removerInputIdentidad(i: number){
-    this.FormulariosVisitantes.removeAt(i);
+  removerInputIdentidad(i: number) {
+    this.formularioVisitantes.removeAt(i);
   }
 
-
-
-
-  notificarVisita(){
-      console.log(this.formulario.value)
+  notificarVisita() {
+    const formData = this.formulario.value;
+    console.log(formData);
   }
-
 }

@@ -14,6 +14,13 @@ const routes: Routes = [
       title: 'Home',
     },
     canActivate: [AuthGuard],
+    children: [
+      {
+        path: 'visitas',
+        loadChildren: () => import('@visitas/visitas.module').then(m => m.VisitasModule)
+      },
+      // ... otras rutas hijas si las hay
+    ]
   },
   {
     path: '404',

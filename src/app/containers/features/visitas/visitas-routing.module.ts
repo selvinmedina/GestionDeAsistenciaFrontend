@@ -4,21 +4,16 @@ import { NotificarVisitasComponent } from '@visitas/notificarVisitas/notificarVi
 // ruta main:Visitas, hijas, componentes
 const routes: Routes = [
   {
-    path: 'visitas',
     data: {
-      title: 'Visitas'
+      title: 'Notificar Visitas',
     },
-    children: [
-      {
-        path: 'notificar',
-        component: NotificarVisitasComponent,
-      }
-    ]
-  }
+    path: 'notificar',
+    component: NotificarVisitasComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class VisitasRoutingModule { }
+export class VisitasRoutingModule {}
