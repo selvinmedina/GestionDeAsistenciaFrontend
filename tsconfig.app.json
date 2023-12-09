@@ -10,6 +10,9 @@
       "@models/*": ["./src/app/models/*"],
       "@core/*": ["./src/app/core/*"],
       "@env/*": ["./src/environments/*"],
+      "@visitas/*": ["./src/app/containers/features/visitas/*"],
+      "@seguridad/*": ["./src/app/containers/features/seguridad/*"],
+      "@shared/*": ["./src/app/shared/*"],
     }
   },
   "files": [

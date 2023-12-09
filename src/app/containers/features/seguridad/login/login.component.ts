@@ -1,6 +1,7 @@
+import { AuthService } from '@core/services/auth.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Component } from '@angular/core';
-import { LoginRequest } from './models/login-request.model';
+import { LoginRequest } from '@models/login/login-request.model';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 

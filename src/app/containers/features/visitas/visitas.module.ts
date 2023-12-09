@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { SharedAppModule } from "@shared/shared.module";
 import { VisitasRoutingModule } from './visitas-routing.module';
 
 
@@ -8,7 +8,8 @@ import { VisitasRoutingModule } from './visitas-routing.module';
   declarations: [],
   imports: [
     CommonModule,
-    VisitasRoutingModule
+    VisitasRoutingModule,
+    SharedAppModule
   ]
 })
 export class VisitasModule { }

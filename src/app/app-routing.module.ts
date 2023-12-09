@@ -5,7 +5,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './containers';
 import { Page404Component } from './views/pages/page404/page404.component';
 import { PageForbiddenComponent } from './views/pages/forbidden/forbidden.component';
-import { RegisterComponent } from './views/pages/register/register.component';
 
 const routes: Routes = [
   {
@@ -39,20 +38,6 @@ const routes: Routes = [
     component: PageForbiddenComponent,
     data: {
       title: 'Page PageForbiddenComponent'
-    }
-  },
-  {
-    path: 'login',
-    component: LoginComponent,
-    data: {
-      title: 'Login Page'
-    }
-  },
-  {
-    path: 'register',
-    component: RegisterComponent,
-    data: {
-      title: 'Register Page'
     }
   },
   {path: '**', redirectTo: 'dashboard'}
