@@ -7,153 +7,155 @@
       </c-card-header>
       <c-card-body class="d-flex flex-wrap">
         <form [formGroup]="formulario" class="w-100">
-          <legend class="text-base px-4">Personas</legend>
-          <div class="mb-3">
-            <div formArrayName="detallesVisita">
-              <div
-                class="flex md:flex-row md:gap-10 flex-col"
-                formGroupName="{{ i }}"
-                *ngFor="
-                  let visitante of formularioVisitantes.controls;
-                  let i = index
-                "
-              >
-                <div class="w-full md:w-50">
-                  <label cLabel class="me-2"
-                    >Nombre:</label
-                  >
-                  <input
-                    cFormControl
-                    class="form-control"
-                    id="exampleFormControlInput1"
-                    placeholder=""
-                    formControlName="nombre"
-                    type=""
-                  />
-                </div>
-                <div class="w-full md:w-50">
-                  <label cLabel class="me-2"
-                    >Apellido:</label
-                  >
-                  <input
-                    cFormControl
-                    class="form-control"
-                    id="exampleFormControlInput1"
-                    placeholder=""
-                    formControlName="apellido"
-                    type=""
-                  />
-                </div>
-                <div class="w-full md:w-50">
-                  <small cLabel for="exampleFormControlInput1" class="mt-3 me-2"
-                    >Identidad:</small
-                  >
-                  <input
-                    cFormControl
-                    class="form-control"
-                    id="exampleFormControlInput1"
-                    placeholder=""
-                    formControlName="identidad"
-                    type=""
-                  />
-                </div>
-                <button
-                  [hidden]="i == 0"
-                  class="text-white mt-4 bg-red-400 p-2 px-4 rounded flex justify-center items-center"
-                  (click)="removerInputIdentidad(i)"
+          <fieldset formArrayName="detallesVisita" class="mb-3">
+            <legend class="text-base px-4">Personas</legend>
+            <div class="mb-3">
+              <div>
+                <div
+                  class="flex md:flex-row md:gap-10 flex-col"
+                  formGroupName="{{ i }}"
+                  *ngFor="
+                    let visitante of formularioVisitantes.controls;
+                    let i = index
+                  "
                 >
-                  X
-                </button>
-                <button
-                  disabled
-                  [hidden]="!(i == 0)"
-                  class="invisible text-white mt-4 bg-red-400 p-2 px-4 rounded flex justify-center items-center"
-                  (click)="removerInputIdentidad(i)"
-                >
-                  X
-                </button>
+                  <div class="w-full md:w-50">
+                    <label cLabel class="me-2">Nombre:</label>
+                    <input
+                      cFormControl
+                      class="form-control"
+                      id="exampleFormControlInput1"
+                      placeholder=""
+                      formControlName="nombre"
+                      type=""
+                    />
+                  </div>
+                  <div class="w-full md:w-50">
+                    <label cLabel class="me-2">Apellido:</label>
+                    <input
+                      cFormControl
+                      class="form-control"
+                      id="exampleFormControlInput1"
+                      placeholder=""
+                      formControlName="apellido"
+                      type=""
+                    />
+                  </div>
+                  <div class="w-full md:w-50">
+                    <small
+                      cLabel
+                      for="exampleFormControlInput1"
+                      class="mt-3 me-2"
+                      >Identidad:</small
+                    >
+                    <input
+                      cFormControl
+                      class="form-control"
+                      id="exampleFormControlInput1"
+                      placeholder=""
+                      formControlName="identidad"
+                      type=""
+                    />
+                  </div>
+                  <button
+                    [hidden]="i == 0"
+                    class="text-white mt-4 bg-red-400 p-2 px-4 rounded flex justify-center items-center"
+                    (click)="removerInputIdentidad(i)"
+                  >
+                    X
+                  </button>
+                  <button
+                    disabled
+                    [hidden]="!(i == 0)"
+                    class="invisible text-white mt-4 bg-red-400 p-2 px-4 rounded flex justify-center items-center"
+                    (click)="removerInputIdentidad(i)"
+                  >
+                    X
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div class="w-full justify-end items-end flex mt-2">
-            <button
-              type="button"
-              class="p-2 bg-[#52a183] border-none text-sm hover:bg-[#3b755f] text-white rounded-md"
-              (click)="agregarInputVisitante()"
-            >
-              Personal ++
-            </button>
-          </div>
-
-          <div formArrayName="asignacionesTransporte">
-            <fieldset class="mt-2 bg-slate-100">
-              <legend class="text-base px-4">Transporte</legend>
-
-              <div
-                class="mt-2 flex gap-2 flex-wrap p-2 rounded-2 justify-center items-center flex-col md:flex-row"
-                id="exampleFormControlInput1"
-                [formGroupName]="i"
-                *ngFor="
-                  let fields of formularioTransporte.controls;
-                  let i = index
-                "
+            <div class="w-full justify-end items-end flex mt-2">
+              <button
+                type="button"
+                class="p-2 bg-[#52a183] border-none text-sm hover:bg-[#3b755f] text-white rounded-md"
+                (click)="agregarInputVisitante()"
               >
-                <div class="w-full md:w-3/12">
-                  <small
-                    cLabel
-                    for="exampleFormControlInput1"
-                    class="mt-3 overflow-auto"
-                    >Tipo de Transporte</small
-                  >
-                  <select
-                    formControlName="tipoTransporteId"
-                    aria-label="Seleccionar"
-                    cSelect
-                  >
-                    <option
-                      *ngFor="let tipo of tiposDeTransporte"
-                      value="{{ tipo.id }}"
-                    >
-                      {{ tipo.nombre }}
-                    </option>
-                  </select>
-                </div>
+                Personal ++
+              </button>
+            </div>
+          </fieldset>
 
-                <div class="w-full md:w-2/12">
-                  <small> Placa: </small>
-                  <input
-                    type="text"
-                    cFormControl
-                    class="form-control"
-                    id="exampleFormControlInput1"
-                    formControlName="placa"
-                    type=""
-                  />
-                </div>
+          <fieldset
+            formArrayName="asignacionesTransporte"
+            class="mt-3"
+          >
+            <legend class="text-base px-4">Transporte</legend>
 
-                <div class="w-full md:w-2/12">
-                  <small>Color: </small>
-                  <input
-                    type="text"
-                    cFormControl
-                    class="form-control"
-                    id="exampleFormControlInput1"
-                    formControlName="color"
-                    placeholder=""
-                    type=""
-                  />
-                </div>
-
-                <button
-                  class="text-white mt-4 bg-red-400 p-2 rounded flex justify-center items-center w-full md:w-10"
-                  (click)="removerInputTransporte(i)"
+            <div
+              class="mt-2 flex gap-2 flex-wrap p-2 rounded-2 justify-center items-center flex-col md:flex-row"
+              id="exampleFormControlInput1"
+              [formGroupName]="i"
+              *ngFor="
+                let fields of formularioTransporte.controls;
+                let i = index
+              "
+            >
+              <div class="w-full md:w-3/12">
+                <small
+                  cLabel
+                  for="exampleFormControlInput1"
+                  class="mt-3 overflow-auto"
+                  >Tipo de Transporte</small
                 >
-                  X
-                </button>
+                <select
+                  formControlName="tipoTransporteId"
+                  aria-label="Seleccionar"
+                  cSelect
+                >
+                  <option
+                    *ngFor="let tipo of tiposDeTransporte"
+                    value="{{ tipo.id }}"
+                  >
+                    {{ tipo.nombre }}
+                  </option>
+                </select>
               </div>
-            </fieldset>
-          </div>
+
+              <div class="w-full md:w-2/12">
+                <small> Placa: </small>
+                <input
+                  type="text"
+                  cFormControl
+                  class="form-control"
+                  id="exampleFormControlInput1"
+                  formControlName="placa"
+                  type=""
+                />
+              </div>
+
+              <div class="w-full md:w-2/12">
+                <small>Color: </small>
+                <input
+                  type="text"
+                  cFormControl
+                  class="form-control"
+                  id="exampleFormControlInput1"
+                  formControlName="color"
+                  placeholder=""
+                  type=""
+                />
+              </div>
+
+              <button
+                class="text-white mt-4 bg-red-400 p-2 rounded flex justify-center items-center w-full md:w-10"
+                (click)="removerInputTransporte(i)"
+              >
+                X
+              </button>
+            </div>
+          </fieldset>
 
           <div class="w-full justify-end items-end flex mt-2">
             <button
