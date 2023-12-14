@@ -65,13 +65,27 @@ export class ControlVisitasComponent {
   }
 
   eliminarVisita(visitaId: number) {
-    this.visitasService.cambiarEstado(visitaId, false).subscribe((response) => {
-      this.obtenerVisitas();
-      Swal.fire(
-        'Visita eliminada',
-        'La visita ha sido eliminada exitosamente',
-        'success'
-      );
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: '¡No podrás revertir esto!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, ¡bórrala!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.visitasService
+          .cambiarEstado(visitaId, false)
+          .subscribe(() => {
+            this.obtenerVisitas();
+            Swal.fire(
+              '¡Eliminado!',
+              'La visita ha sido eliminada con éxito.',
+              'success'
+            );
+          });
+      }
     });
   }
 }

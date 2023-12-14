@@ -32,10 +32,15 @@ export class LoginComponent {
     try {
       const loginRespuesta = await this.authService.login(login);
 
-      localStorage.setItem('accessToken', loginRespuesta.accessToken);
-      localStorage.setItem('refreshToken', loginRespuesta.refreshToken);
+      this.authService.saveTokenData(
+        loginRespuesta.accessToken,
+        loginRespuesta.refreshToken,
+        loginRespuesta.expiresIn
+      );
+
       this.authService.currentTokenSubject.next(loginRespuesta.accessToken);
       this.authService.sendAuthStateChangeNotification(true);
+
       this.router.navigate([this.home]);
     } catch (error: any) {
       if (error.status === 401) {

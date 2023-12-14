@@ -43,23 +43,39 @@ export class AuthService {
     return await lastValueFrom(this.http.post<LoginResponse>(url, body));
   }
 
+  // AuthService
+
+  public saveTokenData(
+    accessToken: string,
+    refreshToken: string,
+    expiresIn: number
+  ): void {
+    const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
+    localStorage.setItem('accessToken', accessToken);
+    localStorage.setItem('refreshToken', refreshToken);
+    localStorage.setItem('expiration', expirationDate.toISOString());
+    this.currentTokenSubject.next(accessToken);
+  }
+
+  public clearTokenData(): void {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('expiration');
+    this.currentTokenSubject.next('');
+  }
+
   public refreshToken(refreshToken: string): Observable<any> {
-    const url = `${environment.Api}/visit/identity/refresh`;
+    const url = `${environment.Visit}/identity/refresh`;
     return this.http.post(url, { refreshToken }).pipe(
       tap((tokens: any) => {
-        // Guarda el nuevo access token y refresh token en el almacenamiento local
-        localStorage.setItem('accessToken', tokens.accessToken);
-        localStorage.setItem('refreshToken', tokens.refreshToken);
-        // Actualiza el BehaviorSubject
-        this.currentTokenSubject.next(tokens.accessToken);
+        this.saveTokenData(
+          tokens.accessToken,
+          tokens.refreshToken,
+          tokens.expiresIn
+        );
       }),
       catchError((error) => {
-        // Si hay un error, elimina el token de acceso y el token de actualización del almacenamiento local
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
-        // Actualiza el BehaviorSubject
-        this.currentTokenSubject.next('');
-        // Devuelve el error
+        this.clearTokenData();
         return throwError(error);
       })
     );
