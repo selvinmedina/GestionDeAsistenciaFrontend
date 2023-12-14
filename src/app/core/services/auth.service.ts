@@ -24,9 +24,6 @@ export class AuthService {
   public currentTokenSubject;
 
   constructor(private http: HttpClient) {
-    const urlApi = environment.Api;
-    console.log(urlApi);
-
     this.currentTokenSubject = new BehaviorSubject<string>(
       localStorage.getItem('accessToken') || ''
     );
@@ -37,7 +34,7 @@ export class AuthService {
   }
 
   async login(body: LoginRequest): Promise<LoginResponse> {
-    const url = `${environment.Api}/visit/identity/login`;
+    const url = `${environment.Identity}/login`;
     console.log(url);
 
     return await lastValueFrom(this.http.post<LoginResponse>(url, body));
@@ -65,7 +62,7 @@ export class AuthService {
   }
 
   public refreshToken(refreshToken: string): Observable<any> {
-    const url = `${environment.Visit}/identity/refresh`;
+    const url = `${environment.Identity}/refresh`;
     return this.http.post(url, { refreshToken }).pipe(
       tap((tokens: any) => {
         this.saveTokenData(
@@ -92,7 +89,7 @@ export class AuthService {
   };
 
   public isUserAuthenticated(): Observable<boolean> {
-    const url = `${environment.Api}/visit/identity/manage/info`;
+    const url = `${environment.Identity}/manage/info`;
     try {
       return this.http.get<boolean>(url).pipe(
         map(() => true), // Si la petición es exitosa, el token es válido

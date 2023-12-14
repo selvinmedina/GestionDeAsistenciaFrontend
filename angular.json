@@ -6,7 +6,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "coreui-free-angular-admin-template": {
+    "gestion-de-visitas": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -23,7 +23,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/coreui-free-angular-admin-template",
+            "outputPath": "dist/gestion-de-visitas",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -81,10 +81,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "coreui-free-angular-admin-template:build:production"
+              "browserTarget": "gestion-de-visitas:build:production"
             },
             "development": {
-              "browserTarget": "coreui-free-angular-admin-template:build:development"
+              "browserTarget": "gestion-de-visitas:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -92,7 +92,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "coreui-free-angular-admin-template:build"
+            "browserTarget": "gestion-de-visitas:build"
           }
         },
         "test": {

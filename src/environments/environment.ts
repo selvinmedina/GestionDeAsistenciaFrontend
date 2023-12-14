@@ -1,5 +1,6 @@
+const dominio = "192.168.0.34"
+
 export const environment = {
-  Api: "http://localhost:9000",
-  Visit: "http://localhost:9000/visit",
-  Identity: "http://localhost:9000/identity",
+  Visit: `http://${dominio}:9000/visit`,
+  Identity: `http://${dominio}:9000/visit/identity`,
 };
