@@ -13,6 +13,12 @@ export class TokenInterceptor implements HttpInterceptor {
   constructor(public authService: AuthService, private router: Router) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
+    if (request.url.endsWith('/login')) {
+      // Si es así, pasar la petición sin ningún cambio
+      return next.handle(request);
+    }
+
     if (this.authService.currentToken) {
       request = this.addToken(request, this.authService.currentToken);
     }
