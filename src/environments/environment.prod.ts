@@ -1,5 +1,4 @@
-const dominio = "localhost"
 export const environment = {
-  Visit: `http://${dominio}:9000/visit`,
-  Identity: `http://${dominio}:9000/visit/identity`,
+  Visit: `https://visitserviceapi20231216004200.azurewebsites.net`,
+  Identity: `https://visitserviceapi20231216004200.azurewebsites.net/identity`,
 };
