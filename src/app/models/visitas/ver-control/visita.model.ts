@@ -5,7 +5,7 @@ export interface Visita {
   id: number;
   fechaEntrada: Date;
   fechaSalida: Date;
-  estado: string;
+  estado: boolean;
   comentarios: string;
   comentarioPersonaQueRecibe: string;
   asignacionesTransporte: Array<Transporte>;

@@ -13,7 +13,8 @@
             <th scope="col">Comentarios Persona que Recibe</th>
             <th scope="col">Transporte</th>
             <th scope="col">Detalle Visita</th>
-            <th scope="col">Acciones</th> <!-- Nueva columna para acciones -->
+            <th scope="col">Acciones</th>
+            <!-- Nueva columna para acciones -->
           </tr>
         </thead>
         <tbody>
@@ -21,9 +22,16 @@
             <!-- Fila de información principal de la visita -->
             <tr>
               <td>{{ visita.id }}</td>
-              <td>{{ visita.fechaEntrada }}</td>
-              <td>{{ visita.fechaSalida }}</td>
-              <td>{{ visita.estado }}</td>
+              <!-- pipe de fecha para utc -6 -->
+
+              <td>
+                {{ visita.fechaEntrada | subtractSixHours | date: 'medium' }}
+              </td>
+              <td>
+                {{ visita.fechaSalida | subtractSixHours | date: 'medium' }}
+              </td>
+
+              <td>{{ visita.estado | booleanToStatus }}</td>
               <td>{{ visita.comentarios }}</td>
               <td>{{ visita.comentarioPersonaQueRecibe }}</td>
               <td>
@@ -44,9 +52,26 @@
               </td>
               <td>
                 <!-- Botones de acción -->
-                <button class="btn btn-primary btn-sm" (click)="marcarEntrada(visita.id)" *ngIf="!visita.fechaEntrada">Marcar Entrada</button>
-                <button class="btn btn-secondary btn-sm" (click)="registrarSalida(visita.id)" *ngIf="visita.fechaEntrada && !visita.fechaSalida">Registrar Salida</button>
-                <button class="btn btn-danger btn-sm" (click)="eliminarVisita(visita.id)">Eliminar</button>
+                <button
+                  class="btn btn-primary btn-sm"
+                  (click)="marcarEntrada(visita.id)"
+                  *ngIf="!visita.fechaEntrada"
+                >
+                  Marcar Entrada
+                </button>
+                <button
+                  class="btn btn-secondary btn-sm"
+                  (click)="registrarSalida(visita.id)"
+                  *ngIf="visita.fechaEntrada && !visita.fechaSalida"
+                >
+                  Registrar Salida
+                </button>
+                <button
+                  class="btn btn-danger btn-sm"
+                  (click)="eliminarVisita(visita.id)"
+                >
+                  Eliminar
+                </button>
               </td>
             </tr>
           </ng-container>
