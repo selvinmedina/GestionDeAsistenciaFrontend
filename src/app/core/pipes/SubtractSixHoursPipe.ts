@@ -10,7 +10,6 @@ export class SubtractSixHoursPipe implements PipeTransform {
     }
 
     let date = new Date(value);
-    date.setHours(date.getHours() - 6);
     return date;
   }
 }
